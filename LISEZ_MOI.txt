@@ -1,0 +1,129 @@
+UMP ONGD — SITE EN HTML, CSS, JAVASCRIPT ET PHP
+
+1. CONTENU
+
+Le projet contient 17 fichiers utiles, sans framework, sans Node.js et sans dossier de dépendances.
+
+Pages :
+- index.php : accueil
+- ong.php : présentation de l’ONG
+- activites.php : activités, filtres et détails
+- actualites.php : publications de l’ONG
+- ressources.php : téléchargement et questions fréquentes
+- engager.php : bénévolat, partenariat, soutien
+- contact.php : formulaire de contact
+- confidentialite.php : usage des informations
+- admin.php : demandes et publications
+- connexion.php : première installation, connexion et déconnexion
+
+Fichiers communs :
+- fonctions.php : configuration, connexion SQLite, sessions, en-tête et pied de page
+- api.php : traitement des formulaires et opérations de gestion
+- style.css : couleurs, présentation et affichage mobile
+- script.js : recherche, filtres, fenêtres de détail et administration
+- logo.png : capture fournie, affichée avec un cadrage CSS
+- presentation.pdf : fiche de présentation téléchargeable
+- LISEZ_MOI.txt : ce guide
+
+2. INSTALLATION AVEC XAMPP SOUS WINDOWS
+
+A. Installer XAMPP avec PHP 8.1 ou plus récent.
+B. Extraire le dossier UMP_ONGD_PHP du fichier ZIP.
+C. Copier ce dossier dans :
+   C:\xampp\htdocs\UMP_ONGD_PHP
+D. Ouvrir le panneau de contrôle XAMPP et démarrer Apache.
+   MySQL n’est pas nécessaire : le site utilise SQLite.
+E. Ouvrir le navigateur sur :
+   http://localhost/UMP_ONGD_PHP/
+
+Il faut ouvrir le site avec cette adresse, et non en double-cliquant sur index.php.
+Si Apache utilise un autre port, adapter l’adresse, par exemple :
+   http://localhost:8080/UMP_ONGD_PHP/
+
+3. CRÉER LE COMPTE ADMINISTRATEUR
+
+Sur l’ordinateur où XAMPP fonctionne, ouvrir :
+   http://localhost/UMP_ONGD_PHP/connexion.php
+
+Choisir son adresse e-mail et un mot de passe d’au moins 10 caractères.
+Confirmer le mot de passe, puis cliquer sur « Créer mon compte ».
+
+Aucun identifiant ou mot de passe par défaut n’est fourni.
+La création initiale est autorisée seulement depuis localhost.
+Une fois le compte créé, cette page sert uniquement à se connecter.
+
+Pour accéder à la gestion :
+   http://localhost/UMP_ONGD_PHP/admin.php
+
+La gestion permet de consulter les demandes, changer leur statut, ajouter
+une note, archiver, exporter en CSV et enregistrer ou publier des actualités.
+Les nouvelles actualités sont visibles sur la page actualites.php.
+
+4. SQLITE ET FICHIER PHP.INI
+
+Si le site indique que pdo_sqlite est absent :
+- Dans XAMPP, cliquer sur Config à côté d’Apache, puis sur PHP (php.ini).
+- Chercher les lignes ci-dessous et retirer le point-virgule initial :
+  extension=pdo_sqlite
+  extension=sqlite3
+- Enregistrer php.ini.
+- Arrêter puis redémarrer Apache.
+
+Ne pas ajouter de doublon si ces extensions sont déjà activées.
+
+5. OÙ SONT ENREGISTRÉES LES DONNÉES ?
+
+La base SQLite est créée automatiquement hors du dossier public du serveur.
+Avec une installation XAMPP habituelle, le dossier se trouve sous C:\xampp :
+   ump_donnees_<identifiant>\ump.sqlite
+
+Il contient le compte administrateur, les demandes et les publications.
+Ne pas placer ce dossier dans htdocs. Ne pas le rendre accessible sur Internet.
+
+Le nom du dossier dépend du chemin d’installation du site. Si vous déplacez
+ou renommez le dossier du site, le programme peut ouvrir une nouvelle base.
+Pour garder une adresse de données fixe, vous pouvez configurer la variable
+d’environnement UMP_DATA_DIR vers un dossier privé situé hors du dossier public.
+
+Sauvegarder la base avec le site avant tout déplacement. Le fichier ZIP livré
+ne contient aucune base personnelle ni demande réelle : l’installation commence vide.
+
+6. MISE EN LIGNE SUR UN HÉBERGEMENT PHP
+
+Le code fonctionne sans service ChatGPT pour la connexion.
+Il faut un hébergement PHP 8.1+ avec PDO SQLite et un dossier privé accessible en écriture.
+
+Créer le compte administrateur en local avant le transfert. Copier ensuite le code
+et la base dans un dossier privé du serveur, puis configurer UMP_DATA_DIR.
+La création du premier compte n’est pas ouverte à distance.
+Activer HTTPS et vérifier les droits du dossier privé.
+
+Le site déjà hébergé précédemment n’est pas automatiquement remplacé par cette archive.
+Cette archive est la nouvelle version autonome en PHP.
+
+7. MODIFIER LE SITE
+
+Les pages PHP contiennent principalement du HTML.
+Le design se modifie dans style.css.
+Les interactions se modifient dans script.js.
+Le menu et le pied de page se modifient une seule fois dans fonctions.php.
+Les textes des domaines se trouvent dans fonctions.php, fonction domaines(),
+et dans les pages de présentation correspondantes.
+
+Le logo fourni provient d’une capture d’écran : les règles CSS .logo et .logo img
+le cadrent. Pour utiliser un logo original, remplacer logo.png et adapter ce cadrage.
+
+8. FONCTIONNALITÉS ET LIMITES
+
+- Formulaires enregistrés dans SQLite avec une référence.
+- Compte administrateur avec mot de passe haché et session.
+- Protection des modifications par jeton CSRF.
+- Recherche et filtres, détails des activités, actualités publiées et brouillons.
+- Export CSV des demandes affichées.
+- Les informations de test ne sont pas fournies dans le ZIP.
+- Aucune notification automatique par e-mail n’est configurée.
+- Aucun paiement en ligne n’est effectué.
+- Les demandes de soutien servent à demander les modalités officielles de don.
+- Ne pas saisir de dossiers patients ou de données médicales dans les formulaires.
+
+Pour arrêter le site local, arrêter Apache dans XAMPP.
